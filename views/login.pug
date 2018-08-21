@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .content-wrapper.page-login
+    .form-wrapper
+      .page-title User Mananger Login
+      form
+          .form-group
+            label(for="username") Account
+            input#username.form-control(type="text" aria-describedby="usernameHelp" placeholder="Enter Username")
+          .form-group
+            label(for="password") Password
+            input#password.form-control(type="password" placeholder="Password")
+          .btn-wrap
+            button.btn.btn-secondary(type="button") Reset
+            button.btn.btn-primary(type="submit") Submit
