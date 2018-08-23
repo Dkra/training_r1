@@ -1,10 +1,14 @@
 body {
-  font-size: 14px;
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
   color: #00b7ff;
+}
+button {
+  cursor: pointer;
+}
+.flex-container {
+  display: flex;
 }
 /**** Pages ****/
 .form-wrapper {
@@ -21,4 +25,36 @@ a {
 }
 .page-login .btn-secondary {
   margin-right: 15px;
+}
+.page-login #username {
+  margin-bottom: 20px;
+}
+.page-home .header {
+  display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+.page-home .right {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-home .right .name {
+  margin-right: 20px;
+}
+.page-home .tab-wrapper {
+  padding-top: 100px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.page-home .table button + button {
+  margin-left: 15px;
+}
+.page-home button#create-user-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

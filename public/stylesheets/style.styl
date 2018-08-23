@@ -1,6 +1,4 @@
 body {
-  font-size 14px
-  padding: 50px
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,6 +6,11 @@ a {
   color: #00B7FF;
 }
 
+button
+  cursor pointer
+
+.flex-container
+  display flex
 
 /**** Pages ****/
 
@@ -25,4 +28,32 @@ a {
     margin-bottom 30px
   .btn-secondary
     margin-right 15px
+  #username
+    margin-bottom 20px
   
+// Home Page (Index)
+.page-home
+  .header
+    display flex
+    padding-left 50px
+    padding-right 50px
+    justify-content space-between
+    align-items center
+    height 60px
+  .right
+    height 100%
+    display flex
+    align-items center
+    justify-content space-between
+    .name
+      margin-right 20px
+  .tab-wrapper
+    padding-top 100px
+    padding-left 50px
+    padding-right 50px
+  .table
+    button + button
+      margin-left 15px
+  button#create-user-btn
+    margin-top 20px
+    margin-bottom 20px
