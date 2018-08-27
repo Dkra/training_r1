@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var msql = require('../database/connection')
+var router = express.Router()
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+	msql.query('SELECT * from users', function(error, results, fields) {
+		if (error) throw error
+		res.send(JSON.stringify({ status: 200, error: null, response: results }))
+		msql.end()
+	})
+})
 
-module.exports = router;
+module.exports = router
