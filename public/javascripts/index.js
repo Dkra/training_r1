@@ -28,6 +28,29 @@ $(document).ready(function() {
 		logoutProcedure()
 	})
 
+	/* User Actions */
+	// Create User
+	$('button#user-create-submit').on('click', function() {
+		const inputUsername = $('#username').val()
+		const inputPassword = $('#password').val()
+		const inputEmail = $('#email').val()
+		axios
+			.post('http://localhost:3001/users', {
+				username: inputUsername,
+				password: inputPassword,
+				email: inputEmail
+			})
+			.then(function(response) {
+				console.log(response.status)
+				// close modal
+				$('#editAndCreateModal').modal('hide')
+				// re-fetch users table data
+			})
+			.catch(function(error) {
+				alert(error.response.data)
+			})
+	})
+
 	// on show bs.modal
 	$('#editAndCreateModal').on('show.bs.modal', function(event) {
 		const button = $(event.relatedTarget) // Button that triggered the modal

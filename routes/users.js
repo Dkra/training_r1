@@ -13,6 +13,11 @@ router.get('/', function(req, res, next) {
 /* POST A user */
 router.post('/', function(req, res, next) {
 	const { username, password, email } = req.body
+	if (!username || !password || !email) {
+		res.status(400).send('Username, Password, Email is all require fields!')
+		return
+	}
+
 	const query = `INSERT INTO users(username, password, email, create_time) values('${username}', '${password}', '${email}', UNIX_TIMESTAMP(now()));`
 	msql.query(query, function(error, results, fields) {
 		if (error) throw error
