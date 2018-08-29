@@ -4,14 +4,14 @@ $(document).ready(function() {
 	const loginAjaxChain = (data, callback) => {
 		axios
 			.post('http://localhost:3001/login', {
-				firstName: data.usernameVal,
-				lastName: data.passwordVal
+				username: data.username,
+				password: data.password
 			})
 			.then(function(response) {
 				callback(response)
 			})
 			.catch(function(error) {
-				console.log(error)
+				alert(error.response.data)
 			})
 	}
 
@@ -46,12 +46,15 @@ $(document).ready(function() {
 		const usernameVal = $('#username').val()
 		const passwordVal = $('#password').val()
 
-		loginAjaxChain({ usernameVal, passwordVal }, response => {
-			if (response.status == 200) {
-				Cookies.set('username', usernameVal)
-				Cookies.set('password', passwordVal)
-				location.href = '/'
+		loginAjaxChain(
+			{ username: usernameVal, password: passwordVal },
+			response => {
+				if (response.status == 200) {
+					Cookies.set('username', usernameVal)
+					Cookies.set('password', passwordVal)
+					location.href = '/'
+				}
 			}
-		})
+		)
 	})
 })
