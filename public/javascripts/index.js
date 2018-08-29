@@ -1,6 +1,34 @@
 $(document).ready(function() {
 	console.log('Index Page')
+	// Logout Procedure
+	const logoutProcedure = () => {
+		Cookies.remove('username')
+		Cookies.remove('password')
+		location.href = '/login'
+	}
 
+	// Cookie on change listener
+	const checkCookie = (() => {
+		var lastCookie = document.cookie
+		return () => {
+			const currentCookie = document.cookie
+			if (lastCookie !== currentCookie) {
+				// update
+				lastCookie = currentCookie
+
+				// logout & redirect
+				logoutProcedure()
+			}
+		}
+	})()
+	window.setInterval(checkCookie, 500)
+
+	// Logout Btn
+	$('.logout-btn').on('click', function() {
+		logoutProcedure()
+	})
+
+	// on show bs.modal
 	$('#editAndCreateModal').on('show.bs.modal', function(event) {
 		const button = $(event.relatedTarget) // Button that triggered the modal
 		const isCreate = button.data('action') === 'create' ? true : false
