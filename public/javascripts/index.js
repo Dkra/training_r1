@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	console.log('Index Page')
 	// Logout Procedure
 	const logoutProcedure = () => {
 		Cookies.remove('username')
@@ -65,10 +64,7 @@ $(document).ready(function() {
 				email: inputEmail
 			})
 			.then(function(response) {
-				console.log(response.status)
-				// close modal
 				$('#editAndCreateModal').modal('hide')
-				// re-fetch users table data
 				getUsers()
 			})
 			.catch(function(error) {
@@ -87,10 +83,7 @@ $(document).ready(function() {
 				email: inputEmail
 			})
 			.then(function(response) {
-				console.log(response.status)
-				// close modal
 				$('#editAndCreateModal').modal('hide')
-				// re-fetch users table data
 				getUsers()
 			})
 			.catch(function(error) {
@@ -113,7 +106,7 @@ $(document).ready(function() {
 			})
 	})
 
-	// on show bs.modal
+	// On show bs.modal
 	$('#editAndCreateModal').on('show.bs.modal', function(event) {
 		const button = $(event.relatedTarget) // Button that triggered the modal
 		const isCreate = button.data('action') === 'create' ? true : false
