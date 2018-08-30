@@ -6,6 +6,7 @@ $(document).ready(function() {
 		Cookies.remove('password')
 		location.href = '/login'
 	}
+
 	// Page Init Procedure
 	const pageInit = (() => {
 		const adminName = Cookies.get('username')
@@ -89,6 +90,21 @@ $(document).ready(function() {
 				console.log(response.status)
 				// close modal
 				$('#editAndCreateModal').modal('hide')
+				// re-fetch users table data
+				getUsers()
+			})
+			.catch(function(error) {
+				alert(error.response.data)
+			})
+	})
+
+	// Delete A User
+	$('.user-table').on('click', '.delete-user-btn', function(e) {
+		const userId = e.target.dataset.id
+		axios
+			.delete(`http://localhost:3001/users/${userId}`)
+			.then(function(response) {
+				console.log(response.status)
 				// re-fetch users table data
 				getUsers()
 			})
