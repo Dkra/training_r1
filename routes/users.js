@@ -6,7 +6,23 @@ const router = express.Router()
 router.get('/', function(req, res, next) {
 	msql.query('SELECT * from users;', function(error, results, fields) {
 		if (error) throw error
-		res.send(JSON.stringify({ status: 200, error: null, response: results }))
+		// filter self
+		var usersData = results.filter(user => !user.isAdmin)
+		// unix time convert
+		usersData = usersData.map(user => {
+			user.create_time = user.create_time
+				? new Date(user.create_time * 1000)
+						.toString()
+						.replace(' GMT+0800 (Taipei Standard Time)', '')
+				: null
+			user.update_time = user.update_time
+				? new Date(user.update_time * 1000)
+						.toString()
+						.replace(' GMT+0800 (Taipei Standard Time)', '')
+				: null
+			return user
+		})
+		res.render('partial/usersTable', { users: usersData })
 	})
 })
 
@@ -36,7 +52,7 @@ router.delete('/:id', function(req, res, next) {
 
 /* Edit A user */
 router.put('/:id', function(req, res, next) {
-	const { username, password, email } = req.body
+	const { password, email } = req.body
 	const query = `update users set
 		${null ? `username='${username}',` : ''}
 		${password ? `password='${password}',` : ''}

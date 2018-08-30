@@ -6,6 +6,11 @@ $(document).ready(function() {
 		Cookies.remove('password')
 		location.href = '/login'
 	}
+	// Page Init Procedure
+	const pageInit = (() => {
+		const adminName = Cookies.get('username')
+		$('.header .name').text(adminName)
+	})()
 
 	// Cookie on change listener
 	const checkCookie = (() => {
@@ -29,6 +34,24 @@ $(document).ready(function() {
 	})
 
 	/* User Actions */
+	// Get Users List
+	const getUsers = () => {
+		return axios
+			.get('/users')
+			.then(function(response) {
+				// handle success
+				$('table.user-table tbody').html(response.data)
+			})
+			.catch(function(error) {
+				// handle error
+				console.log(error)
+			})
+			.then(function() {
+				// always executed
+			})
+	}
+	getUsers()
+
 	// Create User
 	$('button#user-create-submit').on('click', function() {
 		const inputUsername = $('#username').val()
@@ -45,6 +68,29 @@ $(document).ready(function() {
 				// close modal
 				$('#editAndCreateModal').modal('hide')
 				// re-fetch users table data
+				getUsers()
+			})
+			.catch(function(error) {
+				alert(error.response.data)
+			})
+	})
+
+	// Edit User
+	$('button#user-edit-submit').on('click', function(e) {
+		const inputPassword = $('#password').val()
+		const inputEmail = $('#email').val()
+		const userId = e.target.dataset.id
+		axios
+			.put(`http://localhost:3001/users/${userId}`, {
+				password: inputPassword,
+				email: inputEmail
+			})
+			.then(function(response) {
+				console.log(response.status)
+				// close modal
+				$('#editAndCreateModal').modal('hide')
+				// re-fetch users table data
+				getUsers()
 			})
 			.catch(function(error) {
 				alert(error.response.data)
@@ -59,6 +105,8 @@ $(document).ready(function() {
 			// Action: Create
 			const modal = $(this)
 			modal.find('.modal-title').text('Create User')
+			modal.find('button#user-create-submit').show()
+			modal.find('button#user-edit-submit').hide()
 			modal.find('.modal-body input').val('')
 			modal
 				.find('.form-group')
@@ -66,11 +114,19 @@ $(document).ready(function() {
 				.show()
 		} else {
 			// Action: Update
-			const password = button.data('password')
 			const username = button.data('username')
+			const password = button.data('password')
 			const email = button.data('email')
+			const userId = button.data('id')
 			const modal = $(this)
 			modal.find('.modal-title').text('Edit User: ' + username)
+			modal.find('button#user-create-submit').hide()
+			modal.find('button#user-edit-submit').show()
+			// assign user id to submit btn
+			document
+				.querySelector('#user-edit-submit')
+				.setAttribute('data-id', userId)
+
 			modal
 				.find('.form-group')
 				.eq(0)

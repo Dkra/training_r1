@@ -9,7 +9,7 @@ block content
       .logo
         | Back Office
       .right
-        .name Roger Jiang
+        .name 
         button.logout-btn.btn.btn-light(type="button") Logout
 
     .tab-wrapper
@@ -21,60 +21,31 @@ block content
       #myTabContent.tab-content
         button#create-user-btn.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal" data-action="create" ) Create User
         #user.tab-pane.fade.show.active(role="tabpanel" aria-labelledby="user-tab")
-          table.table
+          table.table.user-table
             thead
               tr
                 th(scope="col") #
                 th(scope="col") Name
                 th(scope="col") Password
                 th(scope="col") E-mail
-                th(scope="col") Create Date
-                th(scope="col") Update Date
+                th(scope="col") Create Time
+                th(scope="col") Update Time
                 th(scope="col") Actions
             tbody
-              tr
-                th(scope="row") 1
-                td Mark
-                td @@@@@
-                td dkra4741@gmail.com
-                td 2018-10-3
-                td 2018-12-21 09:20
-                td
-                  button.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal"
-                    data-username="Mark"
-                    data-password="@@@@@"
-                    data-email="dkra4741@gmail.com")
-                    | Edit
-                  button.btn.btn-danger(type="button") Delete
-              tr
-                th(scope="row") 2
-                td eqwerf
-                td @@@@@
-                td dkra4741@gmail.com
-                td 2018-10-3
-                td 2018-12-21 09:20
-                td
-                  button.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal"
-                    data-username="Loius"
-                    data-password="@@a@@"
-                    data-email="test@gmail.com")
-                    | Edit
-                  button.btn.btn-danger(type="button") Delete
-                
-              tr
-                th(scope="row") 3
-                td Larry
-                td @@@@@
-                td dkra4741@gmail.com
-                td 2020-10-3
-                td 2018-12-21 09:20
-                td
-                  button.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal"
-                    data-username="Larry"
-                    data-password="!!!aa"
-                    data-email="larry@gmail.com")
-                    | Edit
-                  button.btn.btn-danger(type="button") Delete
+              //- tr
+              //-   th(scope="row") 3
+              //-   td Larry
+              //-   td @@@@@
+              //-   td dkra4741@gmail.com
+              //-   td 2020-10-3
+              //-   td 2018-12-21 09:20
+              //-   td
+              //-     button.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal"
+              //-       data-username="Larry"
+              //-       data-password="!!!aa"
+              //-       data-email="larry@gmail.com")
+              //-       | Edit
+              //-     button.btn.btn-danger(type="button") Delete
         #file.tab-pane.fade(role="tabpanel" aria-labelledby="file-tab") C
    
     //Modal
@@ -99,7 +70,8 @@ block content
               
           .modal-footer
             button.btn.btn-secondary(type="button" data-dismiss="modal") Close
-            button#user-create-submit.btn.btn-primary(type="button") Create
+            button#user-create-submit.btn.btn-primary(type="button") Confirm
+            button#user-edit-submit.btn.btn-primary(type="button") Confirm
 
 block scripts
   script(src="/javascripts/index.js")
