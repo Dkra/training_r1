@@ -1,3 +1,5 @@
+const hostname = 'localhost:3001' // localhost:3333  <- export docker port
+
 $(document).ready(function() {
 	// Logout Procedure
 	const logoutProcedure = () => {
@@ -58,7 +60,7 @@ $(document).ready(function() {
 		const inputPassword = $('#password').val()
 		const inputEmail = $('#email').val()
 		axios
-			.post('http://localhost:3001/users', {
+			.post(`http://${hostname}/users`, {
 				username: inputUsername,
 				password: inputPassword,
 				email: inputEmail
@@ -78,7 +80,7 @@ $(document).ready(function() {
 		const inputEmail = $('#email').val()
 		const userId = e.target.dataset.id
 		axios
-			.put(`http://localhost:3001/users/${userId}`, {
+			.put(`http://${hostname}/users/${userId}`, {
 				password: inputPassword,
 				email: inputEmail
 			})
@@ -95,7 +97,7 @@ $(document).ready(function() {
 	$('.user-table').on('click', '.delete-user-btn', function(e) {
 		const userId = e.target.dataset.id
 		axios
-			.delete(`http://localhost:3001/users/${userId}`)
+			.delete(`http://${hostname}/users/${userId}`)
 			.then(function(response) {
 				console.log(response.status)
 				// re-fetch users table data

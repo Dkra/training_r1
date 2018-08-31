@@ -1,9 +1,11 @@
+const hostname = 'localhost:3001' // localhost:3333  <- export docker port
+
 $(document).ready(function() {
 	console.log('Login Page')
 	// Login Request Chainer
 	const loginAjaxChain = (data, callback) => {
 		axios
-			.post('http://localhost:3001/login', {
+			.post(`http://${hostname}/login`, {
 				username: data.username,
 				password: data.password
 			})

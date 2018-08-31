@@ -1,4 +1,5 @@
 const express = require('express')
+const moment_timezone = require('moment-timezone')
 const msql = require('../database/connection')
 const router = express.Router()
 
@@ -11,14 +12,16 @@ router.get('/', function(req, res, next) {
 		// unix time convert
 		usersData = usersData.map(user => {
 			user.create_time = user.create_time
-				? new Date(user.create_time * 1000)
-						.toString()
-						.replace(' GMT+0800 (Taipei Standard Time)', '')
+				? moment_timezone
+						.unix(user.create_time)
+						.tz('CST')
+						.format('YYYY-MM-DD HH:mm:ss')
 				: null
 			user.update_time = user.update_time
-				? new Date(user.update_time * 1000)
-						.toString()
-						.replace(' GMT+0800 (Taipei Standard Time)', '')
+				? moment_timezone
+						.unix(user.update_time)
+						.tz('CST')
+						.format('YYYY-MM-DD HH:mm:ss')
 				: null
 			return user
 		})
