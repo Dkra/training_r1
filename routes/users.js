@@ -14,13 +14,13 @@ router.get('/', function(req, res, next) {
 			user.create_time = user.create_time
 				? moment_timezone
 						.unix(user.create_time)
-						.tz('CST')
+						.tz('Asia/Taipei')
 						.format('YYYY-MM-DD HH:mm:ss')
 				: null
 			user.update_time = user.update_time
 				? moment_timezone
 						.unix(user.update_time)
-						.tz('CST')
+						.tz('Asia/Taipei')
 						.format('YYYY-MM-DD HH:mm:ss')
 				: null
 			return user

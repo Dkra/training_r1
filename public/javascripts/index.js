@@ -61,6 +61,11 @@ $(document).ready(function() {
 			return re.test(String(email).toLowerCase())
 				? ''
 				: 'The Email format is incorrect!'
+		},
+		confirmPassword: (password0, password1) => {
+			return password0 === password1
+				? ''
+				: 'The password and confirm password field is not match!'
 		}
 	}
 
@@ -68,17 +73,35 @@ $(document).ready(function() {
 	$('button#user-create-submit').on('click', function() {
 		const inputUsername = $('#username').val()
 		const inputPassword = $('#password').val()
+		const inputConfirmPassword = $('#confirm-password').val()
 		const inputEmail = $('#email').val()
 
-		// validate
+		// Validate
+		// prepare start validate
+		$('.error-msg').remove()
+
+		// Validating
 		const emailErrorText = validateObj.email(inputEmail)
 		if (emailErrorText) {
 			const errorEl = $(`<div class='error-msg'>${emailErrorText}</div>`)
 			$('#email')
 				.parent()
 				.append(errorEl)
-			return
 		}
+
+		const confirmPasswordText = validateObj.confirmPassword(
+			inputPassword,
+			inputConfirmPassword
+		)
+		if (confirmPasswordText) {
+			const errorEl = $(`<div class='error-msg'>${confirmPasswordText}</div>`)
+			$('#confirm-password')
+				.parent()
+				.append(errorEl)
+		}
+
+		// After validate ( stop if any error occurs )
+		if (emailErrorText || confirmPasswordText) return
 
 		// send request
 		axios
@@ -100,17 +123,35 @@ $(document).ready(function() {
 	$('button#user-edit-submit').on('click', function(e) {
 		const inputPassword = $('#password').val()
 		const inputEmail = $('#email').val()
+		const inputConfirmPassword = $('#confirm-password').val()
 		const userId = e.target.dataset.id
 
-		// validate
+		// Validate
+		// prepare start validate
+		$('.error-msg').remove()
+
+		// Validating
 		const emailErrorText = validateObj.email(inputEmail)
 		if (emailErrorText) {
 			const errorEl = $(`<div class='error-msg'>${emailErrorText}</div>`)
 			$('#email')
 				.parent()
 				.append(errorEl)
-			return
 		}
+
+		const confirmPasswordText = validateObj.confirmPassword(
+			inputPassword,
+			inputConfirmPassword
+		)
+		if (confirmPasswordText) {
+			const errorEl = $(`<div class='error-msg'>${confirmPasswordText}</div>`)
+			$('#confirm-password')
+				.parent()
+				.append(errorEl)
+		}
+
+		// After validate ( stop if any error occurs )
+		if (emailErrorText || confirmPasswordText) return
 
 		// send request
 		axios
@@ -177,6 +218,7 @@ $(document).ready(function() {
 				.eq(0)
 				.hide()
 			modal.find('.modal-body input#password').val(password)
+			modal.find('.modal-body input#confirm-password').val(password)
 			modal.find('.modal-body input#email').val(email)
 		}
 	})

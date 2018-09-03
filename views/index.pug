@@ -32,20 +32,6 @@ block content
                 th(scope="col") Update Time
                 th(scope="col") Actions
             tbody
-              //- tr
-              //-   th(scope="row") 3
-              //-   td Larry
-              //-   td @@@@@
-              //-   td dkra4741@gmail.com
-              //-   td 2020-10-3
-              //-   td 2018-12-21 09:20
-              //-   td
-              //-     button.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal"
-              //-       data-username="Larry"
-              //-       data-password="!!!aa"
-              //-       data-email="larry@gmail.com")
-              //-       | Edit
-              //-     button.btn.btn-danger(type="button") Delete
         #file.tab-pane.fade(role="tabpanel" aria-labelledby="file-tab") C
    
     //Modal
@@ -67,6 +53,9 @@ block content
               .form-group
                 label.col-form-label(for="password") Password:
                 input#password.form-control(type="text")
+              .form-group
+                label.col-form-label(for="confirmPassword") Confirm Password:
+                input#confirm-password.form-control(type="text")
               
           .modal-footer
             button.btn.btn-secondary(type="button" data-dismiss="modal") Close
