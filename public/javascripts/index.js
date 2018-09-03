@@ -54,11 +54,33 @@ $(document).ready(function() {
 	}
 	getUsers()
 
+	// Validate
+	const validateObj = {
+		email: email => {
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			return re.test(String(email).toLowerCase())
+				? ''
+				: 'The Email format is incorrect!'
+		}
+	}
+
 	// Create User
 	$('button#user-create-submit').on('click', function() {
 		const inputUsername = $('#username').val()
 		const inputPassword = $('#password').val()
 		const inputEmail = $('#email').val()
+
+		// validate
+		const emailErrorText = validateObj.email(inputEmail)
+		if (emailErrorText) {
+			const errorEl = $(`<div class='error-msg'>${emailErrorText}</div>`)
+			$('#email')
+				.parent()
+				.append(errorEl)
+			return
+		}
+
+		// send request
 		axios
 			.post(`http://${hostname}/users`, {
 				username: inputUsername,
@@ -79,6 +101,18 @@ $(document).ready(function() {
 		const inputPassword = $('#password').val()
 		const inputEmail = $('#email').val()
 		const userId = e.target.dataset.id
+
+		// validate
+		const emailErrorText = validateObj.email(inputEmail)
+		if (emailErrorText) {
+			const errorEl = $(`<div class='error-msg'>${emailErrorText}</div>`)
+			$('#email')
+				.parent()
+				.append(errorEl)
+			return
+		}
+
+		// send request
 		axios
 			.put(`http://${hostname}/users/${userId}`, {
 				password: inputPassword,
@@ -145,5 +179,11 @@ $(document).ready(function() {
 			modal.find('.modal-body input#password').val(password)
 			modal.find('.modal-body input#email').val(email)
 		}
+	})
+
+	// On hide bs.modal
+	$('#editAndCreateModal').on('hide.bs.modal', function(event) {
+		// Reset Modal Process
+		$('.error-msg').remove()
 	})
 })
