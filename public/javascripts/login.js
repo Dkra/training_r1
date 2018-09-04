@@ -1,4 +1,4 @@
-const hostname = 'localhost:3001' // localhost:3333  <- export docker port
+const hostname = 'localhost:3001/api' // localhost:3333  <- export docker port
 
 $(document).ready(function() {
 	console.log('Login Page')

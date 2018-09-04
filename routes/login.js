@@ -2,11 +2,6 @@ var express = require('express')
 const msql = require('../database/connection')
 var router = express.Router()
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	res.render('login', { title: 'Login Page' })
-})
-
 /* POST Login */
 router.post('/', function(req, res, next) {
 	const { username, password } = req.body

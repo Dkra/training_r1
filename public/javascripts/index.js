@@ -1,4 +1,4 @@
-const hostname = 'localhost:3001' // localhost:3333  <- export docker port
+const hostname = 'localhost:3001/api' // localhost:3333  <- export docker port
 
 $(document).ready(function() {
 	// Logout Procedure
@@ -39,7 +39,7 @@ $(document).ready(function() {
 	// Get Users List
 	const getUsers = () => {
 		return axios
-			.get('/users')
+			.get('/api/users')
 			.then(function(response) {
 				// handle success
 				$('table.user-table tbody').html(response.data)
