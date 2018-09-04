@@ -233,8 +233,6 @@ $(document).ready(function() {
 				.find('.form-group')
 				.eq(0)
 				.hide()
-			modal.find('.modal-body input#password').val(password)
-			modal.find('.modal-body input#confirm-password').val(password)
 			modal.find('.modal-body input#email').val(email)
 		}
 	})

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 /* POST Login */
 router.post('/', function(req, res, next) {
 	const { username, password } = req.body
-	const query = `Select * FROM users WHERE username = '${username}' AND password='${password}' AND isAdmin=1;`
+	const query = `Select * FROM users WHERE username = '${username}' AND password=MD5('${password}') AND isAdmin=1;`
 	msql.query(query, function(error, results, fields) {
 		if (error) throw error
 		if (results.length === 0) {

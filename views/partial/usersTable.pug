@@ -3,14 +3,13 @@ each user in users
 		th(scope="row") #{user.id}
 		td #{user.username}
 		td #{user.email}
-		td #{user.password.replace(/./g, '*')}
+		td #{user.password.replace(/./g, '*').slice(-6)}
 		td #{user.create_time}
 		td #{user.update_time}
 		td
 			button.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal"
 			data-id=`${user.id}`
 			data-username=`${user.username}`
-			data-password=`${user.password}`
 			data-email=`${user.email}`) Edit
 			button.btn.btn-danger(type="button"
 				data-toggle="modal"
