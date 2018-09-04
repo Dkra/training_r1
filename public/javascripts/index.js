@@ -169,12 +169,12 @@ $(document).ready(function() {
 	})
 
 	// Delete A User
-	$('.user-table').on('click', '.delete-user-btn', function(e) {
+	$('#user-delete-submit').on('click', function(e) {
 		const userId = e.target.dataset.id
 		axios
 			.delete(`http://${hostname}/users/${userId}`)
 			.then(function(response) {
-				console.log(response.status)
+				$('#deleteUserModal').modal('hide')
 				// re-fetch users table data
 				getUsers()
 			})
@@ -183,7 +183,23 @@ $(document).ready(function() {
 			})
 	})
 
-	// On show bs.modal
+	// On show bs.modal ( Delete User )
+	$('#deleteUserModal').on('show.bs.modal', function(event) {
+		const button = $(event.relatedTarget)
+		const username = button.data('username')
+		const userId = button.data('id')
+		const email = button.data('email')
+		const modal = $(this)
+		modal
+			.find('.modal-title')
+			.html(`Delete User: ${username}<br> (Email:${email})`)
+		// assign user id to submit btn
+		document
+			.querySelector('#user-delete-submit')
+			.setAttribute('data-id', userId)
+	})
+
+	// On show bs.modal ( Create / Edit User )
 	$('#editAndCreateModal').on('show.bs.modal', function(event) {
 		const button = $(event.relatedTarget) // Button that triggered the modal
 		const isCreate = button.data('action') === 'create' ? true : false
