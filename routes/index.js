@@ -3,7 +3,13 @@ var router = express.Router()
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' })
+	const username = req.session.username
+	req.session.views ? req.session.views++ : (req.session.views = 1)
+	if (!username) {
+		res.redirect('/login')
+	} else {
+		res.render('index', { title: 'Admin Page', username })
+	}
 })
 
 module.exports = router

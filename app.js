@@ -1,12 +1,13 @@
 var createError = require('http-errors')
 var express = require('express')
+var session = require('express-session')
 var path = require('path')
-var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var loginRouter = require('./routes/login')
+var logoutRouter = require('./routes/logout')
 var loginIndexRouter = require('./routes/loginIndex')
 
 var app = express()
@@ -18,12 +19,17 @@ app.set('view engine', 'pug')
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(
+	session({
+		secret: 'A key for encrpty'
+	})
+)
 
 app.use('/', indexRouter)
 app.use('/login', loginIndexRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/logout', logoutRouter)
 app.use('/api/users', usersRouter)
 
 // catch 404 and forward to error handler

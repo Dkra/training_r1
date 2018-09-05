@@ -17,24 +17,6 @@ $(document).ready(function() {
 			})
 	}
 
-	// Check Cookie Login
-	if (Cookies.get('username') && Cookies.get('password')) {
-		// $('body').hide()
-		loginAjaxChain(
-			{
-				username: Cookies.get('username'),
-				password: Cookies.get('password')
-			},
-			response => {
-				if (response.status == 200) {
-					location.href = '/'
-				} else {
-					// $('body').show()
-				}
-			}
-		)
-	}
-
 	// Reset
 	$('.reset-btn').on('click', function() {
 		const inputUsername = $('#username')
@@ -52,8 +34,6 @@ $(document).ready(function() {
 			{ username: usernameVal, password: passwordVal },
 			response => {
 				if (response.status == 200) {
-					Cookies.set('username', usernameVal)
-					Cookies.set('password', passwordVal)
 					location.href = '/'
 				}
 			}

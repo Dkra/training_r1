@@ -3,32 +3,20 @@ const hostname = 'localhost:3001/api' // localhost:3333  <- export docker port
 $(document).ready(function() {
 	// Logout Procedure
 	const logoutProcedure = () => {
-		Cookies.remove('username')
-		Cookies.remove('password')
-		location.href = '/login'
+		axios
+			.get('/api/logout')
+			.then(function(response) {
+				// handle success
+				location.href = '/login'
+			})
+			.catch(function(error) {
+				// handle error
+				console.log(error)
+			})
+			.then(function() {
+				// always executed
+			})
 	}
-
-	// Page Init Procedure
-	const pageInit = (() => {
-		const adminName = Cookies.get('username')
-		$('.header .name').text(adminName)
-	})()
-
-	// Cookie on change listener
-	const checkCookie = (() => {
-		var lastCookie = document.cookie
-		return () => {
-			const currentCookie = document.cookie
-			if (lastCookie !== currentCookie) {
-				// update
-				lastCookie = currentCookie
-
-				// logout & redirect
-				logoutProcedure()
-			}
-		}
-	})()
-	window.setInterval(checkCookie, 500)
 
 	// Logout Btn
 	$('.logout-btn').on('click', function() {

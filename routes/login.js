@@ -13,7 +13,9 @@ router.post('/', function(req, res, next) {
 				.status(401)
 				.send('Username or Password Incorrect or Admin is not exist!')
 		} else {
-			res.send(JSON.stringify({ status: 200, error: null, response: results }))
+			// Save username to session
+			req.session.username = results[0].username
+			res.send(JSON.stringify({ status: 200, error: null, response: null }))
 		}
 	})
 })
