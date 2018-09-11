@@ -15,7 +15,7 @@ var storage = multer.diskStorage({
 	}
 })
 var upload = multer({ storage })
-console.log('upload:', upload)
+
 // Router
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
@@ -52,7 +52,7 @@ app.post('/myfiles', upload.single('myfile'), function(req, res, next) {
 
 // File Download
 app.get('/download/:filename', (req, res) => {
-	var file = req.params.file
+	var file = req.params.filename
 	var fileLocation = path.join(`${__dirname}/uploads`, file)
 	res.download(fileLocation, file)
 })
