@@ -16,11 +16,11 @@ block content
       ul#myTab.nav.nav-tabs(role="tablist")
         li.nav-item
           a#user-tab.nav-link.active(data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="true") Users
-        //- li.nav-item
-        //-   a#file-tab.nav-link(data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false") Files
+        li.nav-item
+          a#file-tab.nav-link(data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false") Files
       #myTabContent.tab-content
-        button#create-user-btn.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal" data-action="create" ) Create User
         #user.tab-pane.fade.show.active(role="tabpanel" aria-labelledby="user-tab")
+          button#create-user-btn.btn.btn-primary(type="button" data-toggle="modal" data-target="#editAndCreateModal" data-action="create" ) Create User
           table.table.user-table
             thead
               tr
@@ -32,7 +32,11 @@ block content
                 th(scope="col") Update Time
                 th(scope="col") Actions
             tbody
-        #file.tab-pane.fade(role="tabpanel" aria-labelledby="file-tab") C
+        #file.tab-pane.fade(role="tabpanel" aria-labelledby="file-tab")
+          .upload-wrapper
+            form(action="/myfiles" method="post" enctype="multipart/form-data")
+              input(type="file" name="myfile")
+              button#file-upload-submit.btn.btn-primary(type="submit") Confirm
    
     //Modal
     #editAndCreateModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="editAndCreateModalLabel" aria-hidden="true")

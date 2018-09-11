@@ -1,9 +1,22 @@
 var createError = require('http-errors')
 var express = require('express')
 var session = require('express-session')
+var multer = require('multer')
 var path = require('path')
 var logger = require('morgan')
 
+// Storage
+var storage = multer.diskStorage({
+	destination: function(req, file, cb) {
+		cb(null, `${__dirname}/uploads`)
+	},
+	filename: function(req, file, cb) {
+		cb(null, file.originalname)
+	}
+})
+var upload = multer({ storage })
+console.log('upload:', upload)
+// Router
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var loginRouter = require('./routes/login')
@@ -31,6 +44,18 @@ app.use('/login', loginIndexRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/logout', logoutRouter)
 app.use('/api/users', usersRouter)
+
+// File Upload
+app.post('/myfiles', upload.single('myfile'), function(req, res, next) {
+	// Callback
+})
+
+// File Download
+app.get('/download/:filename', (req, res) => {
+	var file = req.params.file
+	var fileLocation = path.join(`${__dirname}/uploads`, file)
+	res.download(fileLocation, file)
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
