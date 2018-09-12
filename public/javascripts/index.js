@@ -42,6 +42,24 @@ $(document).ready(function() {
 	}
 	getUsers()
 
+	// Get File List
+	const getFiles = () => {
+		return axios
+			.get('/api/files')
+			.then(function(response) {
+				// handle success
+				$('table.file-table tbody').html(response.data)
+			})
+			.catch(function(error) {
+				// handle error
+				console.log(error)
+			})
+			.then(function() {
+				// always executed
+			})
+	}
+	getFiles()
+
 	// Validate
 	const validateObj = {
 		email: email => {
@@ -229,5 +247,76 @@ $(document).ready(function() {
 	$('#editAndCreateModal').on('hide.bs.modal', function(event) {
 		// Reset Modal Process
 		$('.error-msg').remove()
+	})
+
+	// On Tab Active
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(event) {
+		event.target // newly activated tab
+		const isFileTabActive = $(event.target).text() === 'Files' ? true : false
+
+		if (isFileTabActive) {
+			getFiles()
+		}
+	})
+
+	// File Submit
+	$('#upload-form').on('submit', function(event) {
+		event.preventDefault()
+		const $form = $(this)
+		// const $fileInput = $form.find('input[type=file]')
+		// const file = $fileInput[0].files
+		const $file = document.querySelector('#file-input')
+
+		// Check isEmpty
+		if ($file.files.length === 0) {
+			alert('No File Selected!')
+			return
+		}
+		var formData = new FormData()
+		formData.append('file', $file.files[0])
+
+		// send request
+		axios
+			.post(`http://${hostname}/files`, formData, {
+				headers: { 'Content-Type': 'multipart/form-data' }
+			})
+			.then(function(response) {
+				console.log('response:', response)
+				alert('Successful upload file!')
+				// Reset  input
+				$file.value = ''
+				// get file lists
+				getFiles()
+			})
+			.catch(function(error) {
+				alert(error.response.data)
+			})
+	})
+
+	// Delete A File
+	$('#file-delete-submit').on('click', function(e) {
+		const filename = e.target.dataset.filename
+		axios
+			.delete(`http://${hostname}/files/${filename}`)
+			.then(function(response) {
+				$('#deleteFileModal').modal('hide')
+				// re-fetch users table data
+				getFiles()
+			})
+			.catch(function(error) {
+				alert(error.response.data)
+			})
+	})
+
+	// On show bs.modal ( Delete File )
+	$('#deleteFileModal').on('show.bs.modal', function(event) {
+		const button = $(event.relatedTarget)
+		const filename = button.data('filename')
+		const modal = $(this)
+		modal.find('.modal-title').html(`Delete File: ${filename}`)
+		// assign user id to submit btn
+		document
+			.querySelector('#file-delete-submit')
+			.setAttribute('data-filename', filename)
 	})
 })

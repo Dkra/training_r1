@@ -1,24 +1,13 @@
 var createError = require('http-errors')
 var express = require('express')
 var session = require('express-session')
-var multer = require('multer')
 var path = require('path')
 var logger = require('morgan')
-
-// Storage
-var storage = multer.diskStorage({
-	destination: function(req, file, cb) {
-		cb(null, `${__dirname}/uploads`)
-	},
-	filename: function(req, file, cb) {
-		cb(null, file.originalname)
-	}
-})
-var upload = multer({ storage })
 
 // Router
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
+var fileRouter = require('./routes/file')
 var loginRouter = require('./routes/login')
 var logoutRouter = require('./routes/logout')
 var loginIndexRouter = require('./routes/loginIndex')
@@ -44,18 +33,36 @@ app.use('/login', loginIndexRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/logout', logoutRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/files', fileRouter)
 
-// File Upload
-app.post('/myfiles', upload.single('myfile'), function(req, res, next) {
-	// Callback
-})
+// // File Upload
+// app.post('/api/uploadFile', upload.single('file'), function(req, res, next) {
+// 	res.sendStatus(200)
+// })
 
-// File Download
-app.get('/download/:filename', (req, res) => {
-	var file = req.params.filename
-	var fileLocation = path.join(`${__dirname}/uploads`, file)
-	res.download(fileLocation, file)
-})
+// // File Download
+// app.get('/api/download/:filename', (req, res) => {
+// 	var file = req.params.filename
+// 	var fileLocation = path.join(`${__dirname}/uploads`, file)
+// 	res.download(fileLocation, file)
+// })
+
+// // File List
+// app.get('/api/files', async (req, res, next) => {
+// 	const directoryPath = path.join(__dirname, '/uploads')
+// 	const fileNames = fs.readdirSync(directoryPath)
+
+// 	res.render('partial/fileTable', { fileNames })
+// })
+
+// app.delete('/api/file/:filename', async (req, res, next) => {
+// 	const directoryPath = path.join(__dirname, '/uploads')
+// 	fs.unlink(`${directoryPath}/${req.params.filename}`, err => {
+// 		if (err) throw err
+// 		console.log('File deleted!')
+// 		res.sendStatus(200)
+// 	})
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

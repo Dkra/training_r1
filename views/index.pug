@@ -33,10 +33,16 @@ block content
                 th(scope="col") Actions
             tbody
         #file.tab-pane.fade(role="tabpanel" aria-labelledby="file-tab")
-          .upload-wrapper
-            form(action="/myfiles" method="post" enctype="multipart/form-data")
-              input(type="file" name="myfile")
+          form#upload-form(action="/myfiles" method="post" enctype="multipart/form-data")
+            .upload-wrapper
+              input#file-input(type="file" name="file")
               button#file-upload-submit.btn.btn-primary(type="submit") Confirm
+          table.table.file-table
+            thead
+              tr
+                th(scope="col") File Names
+                th(scope="col") Actions
+            tbody
    
     //Modal
     #editAndCreateModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="editAndCreateModalLabel" aria-hidden="true")
@@ -66,7 +72,7 @@ block content
             button#user-create-submit.btn.btn-primary(type="button") Confirm
             button#user-edit-submit.btn.btn-primary(type="button") Confirm
     
-    // Error Modal
+    // Delete Modal
     #deleteUserModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true")
       .modal-dialog(role="document")
         .modal-content
@@ -79,6 +85,19 @@ block content
           .modal-footer
             button.btn.btn-secondary(type="button" data-dismiss="modal") Close
             button.btn.btn-primary#user-delete-submit(type="button") Confirm
+    
+    #deleteFileModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteFileModal" aria-hidden="true")
+      .modal-dialog(role="document")
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Delete File: 
+            button.close(type="button" data-dismiss="modal" aria-label="Close")
+              span(aria-hidden="true") ×
+          .modal-body
+            | This action is not able to recover!<br>Are you sure want to delete this file?
+          .modal-footer
+            button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+            button.btn.btn-primary#file-delete-submit(type="button") Confirm
     
 
 block scripts

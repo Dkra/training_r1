@@ -58,6 +58,10 @@ button {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.page-home .upload-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .error-msg {
   margin-top: 10px;
   color: #f00;

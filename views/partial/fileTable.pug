@@ -1,0 +1,9 @@
+each fileName in fileNames
+	tr
+		td #{fileName}
+		td
+			button.btn.btn-danger(type="button"
+				data-toggle="modal"
+				data-target="#deleteFileModal"
+                data-filename=`${fileName}`
+			) Delete
