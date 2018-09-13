@@ -2,8 +2,10 @@ each fileName in fileNames
 	tr
 		td #{fileName}
 		td
+			button.btn.btn-primary(type="button")
+				a(href=`/api/files/${fileName}` download=`${fileName}`) Download
 			button.btn.btn-danger(type="button"
 				data-toggle="modal"
 				data-target="#deleteFileModal"
-                data-filename=`${fileName}`
+				data-filename=`${fileName}`
 			) Delete
