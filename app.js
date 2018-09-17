@@ -35,35 +35,6 @@ app.use('/api/logout', logoutRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/files', fileRouter)
 
-// // File Upload
-// app.post('/api/uploadFile', upload.single('file'), function(req, res, next) {
-// 	res.sendStatus(200)
-// })
-
-// // File Download
-// app.get('/api/download/:filename', (req, res) => {
-// 	var file = req.params.filename
-// 	var fileLocation = path.join(`${__dirname}/uploads`, file)
-// 	res.download(fileLocation, file)
-// })
-
-// // File List
-// app.get('/api/files', async (req, res, next) => {
-// 	const directoryPath = path.join(__dirname, '/uploads')
-// 	const fileNames = fs.readdirSync(directoryPath)
-
-// 	res.render('partial/fileTable', { fileNames })
-// })
-
-// app.delete('/api/file/:filename', async (req, res, next) => {
-// 	const directoryPath = path.join(__dirname, '/uploads')
-// 	fs.unlink(`${directoryPath}/${req.params.filename}`, err => {
-// 		if (err) throw err
-// 		console.log('File deleted!')
-// 		res.sendStatus(200)
-// 	})
-// })
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	next(createError(404))

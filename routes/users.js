@@ -49,7 +49,14 @@ router.delete('/:id', function(req, res, next) {
 	const query = `DELETE FROM users WHERE id = ${req.params.id};`
 	msql.query(query, function(error, results, fields) {
 		if (error) throw error
-		res.send(JSON.stringify({ status: 200, error: null, response: results }))
+		res.send(
+			JSON.stringify({
+				status: 200,
+				error: null,
+				msg: 'deleted!',
+				response: results
+			})
+		)
 	})
 })
 
@@ -63,7 +70,14 @@ router.put('/:id', function(req, res, next) {
 		update_time=UNIX_TIMESTAMP(now()) where id=${req.params.id};`
 	msql.query(query, function(error, results, fields) {
 		if (error) throw error
-		res.send(JSON.stringify({ status: 200, error: null, response: results }))
+		res.send(
+			JSON.stringify({
+				status: 200,
+				error: null,
+				msg: 'updated!',
+				response: results
+			})
+		)
 	})
 })
 

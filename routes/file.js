@@ -23,8 +23,14 @@ router.get('/', async (req, res, next) => {
 	res.render('partial/fileTable', { fileNames })
 })
 
-// POST File Upload
-router.post('/', upload.single('file'), function(req, res, next) {
+// POST File Upload (Multer)
+// router.post('/', upload.single('file'), function(req, res, next) {
+// 	res.sendStatus(200)
+// })
+
+router.post('/', function(req, res, next) {
+	console.log(req.body)
+	console.log(req.files)
 	res.sendStatus(200)
 })
 

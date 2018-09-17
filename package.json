@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
-		"dev": "node ./bin/www environment=dev",
+		"dev": "node ./bin/www environment=docker",
 		"test": "mocha -w"
 	},
 	"dependencies": {

@@ -7,6 +7,15 @@ a {
 button {
   cursor: pointer;
 }
+button a {
+  color: #fff;
+  text-decoration: none;
+}
+button a:hover,
+button a:focus {
+  color: #fff;
+  text-decoration: none;
+}
 .flex-container {
   display: flex;
 }
