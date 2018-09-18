@@ -1,22 +1,9 @@
 var express = require('express')
-// var multer = require('multer')
 var formidable = require('formidable')
 const mime = require('mime')
 var path = require('path')
 const fs = require('fs')
 var router = express.Router()
-
-// Storage
-
-// var storage = multer.diskStorage({
-// 	destination: function(req, file, cb) {
-// 		cb(null, `${__dirname}/../uploads`)
-// 	},
-// 	filename: function(req, file, cb) {
-// 		cb(null, file.originalname)
-// 	}
-// })
-// var upload = multer({ storage })
 
 // GET File List
 router.get('/', async (req, res, next) => {
@@ -43,36 +30,6 @@ router.post('/', function(req, res, next) {
 	})
 })
 
-// POST File Upload (Multer)
-// router.post('/', upload.single('file'), function(req, res, next) {
-// 	res.sendStatus(200)
-// })
-
-/* File upload without library
-router.post('/', function(req, res, next) {
-	let body = ''
-	req.on('data', chunk => {
-		convertedChunk = chunk.toString('utf8')
-		body += convertedChunk
-	})
-	req.on('end', () => {
-		console.log(body)
-		const directoryPath = path.join(__dirname, '/../uploads')
-		const parsedDataArr = body.split('\n')
-		let filename = parsedDataArr[1].match(/filename=\"([^"]*)\"/)[1]
-		let content = parsedDataArr.slice(4, -2)
-
-		// write file
-		fs.writeFile(`${directoryPath}/${filename}`, content, function(err) {
-			if (err) console.log(err)
-			else {
-				console.log('Write operation complete.')
-				res.end('ok')
-			}
-		})
-	})
-})
-*/
 // GET Single File
 router.get('/:filename', (req, res) => {
 	var file = req.params.filename
@@ -84,8 +41,6 @@ router.get('/:filename', (req, res) => {
 
 	var filestream = fs.createReadStream(fileLocation)
 	filestream.pipe(res)
-	// res.sendFile(fileLocation)
-	// res.download(fileLocation, file)
 })
 
 // DELETE File
