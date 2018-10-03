@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
 	const username = req.session.username
 	if (username) {
 		// res.redirect('/', { title: 'Admin Page', username })
-		res.redirect(200, '/')
+		res.redirect(301, '/')
 	} else {
 		res.render('login', { title: 'Login Page' })
 	}
