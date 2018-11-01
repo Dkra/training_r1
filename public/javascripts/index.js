@@ -1,4 +1,4 @@
-const hostname = 'localhost:3001/api' // localhost:3333  <- export docker port
+const hostname = '' // localhost:3333  <- export docker port
 
 $(document).ready(function() {
 	// Logout Procedure
@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 		// send request
 		axios
-			.post(`http://${hostname}/users`, {
+			.post(`api${hostname}/users`, {
 				username: inputUsername,
 				password: inputPassword,
 				email: inputEmail
@@ -161,7 +161,7 @@ $(document).ready(function() {
 
 		// send request
 		axios
-			.put(`http://${hostname}/users/${userId}`, {
+			.put(`${hostname}api/users/${userId}`, {
 				password: inputPassword,
 				email: inputEmail
 			})
@@ -178,7 +178,7 @@ $(document).ready(function() {
 	$('#user-delete-submit').on('click', function(e) {
 		const userId = e.target.dataset.id
 		axios
-			.delete(`http://${hostname}/users/${userId}`)
+			.delete(`${hostname}api/users/${userId}`)
 			.then(function(response) {
 				$('#deleteUserModal').modal('hide')
 				// re-fetch users table data
@@ -277,7 +277,7 @@ $(document).ready(function() {
 
 		// send request
 		axios
-			.post(`http://${hostname}/files`, formData, {
+			.post(`${hostname}api/files`, formData, {
 				headers: { 'Content-Type': 'multipart/form-data' }
 			})
 			.then(function(response) {
@@ -297,7 +297,7 @@ $(document).ready(function() {
 	$('#file-delete-submit').on('click', function(e) {
 		const filename = e.target.dataset.filename
 		axios
-			.delete(`http://${hostname}/files/${filename}`)
+			.delete(`${hostname}api/files/${filename}`)
 			.then(function(response) {
 				$('#deleteFileModal').modal('hide')
 				// re-fetch users table data
